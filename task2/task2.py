@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 # Ищем точки столкновения сферы и прямой линии
 # Координаты считываются из файла coordinate.txt
-
-# coord = '{sphere: {center: [0, 0, 0], radius: 10.67}, line: {[1, 0.5, 15], [43, -14.6, 0.04]}}'
-
 import ast
 import numpy as np
 import matplotlib.pyplot as plt
@@ -57,7 +54,7 @@ else:
     collision_2 = [round(dot1_x + t2 * dx, 2), round(dot1_y + t2 * dy, 2), round(dot1_z + t2 * dz, 2)]
     print(collision_1)
     print(collision_2)
-scale = int(2* radius)
+scale = int(2 * radius)
 ax = plt.axes(projection="3d")
 x_list = np.linspace(-radius, radius, scale)
 y_list = np.linspace(-radius, radius, scale)
@@ -74,8 +71,8 @@ elif disc > 0:
     ax.scatter(collision_1[0], collision_1[1], collision_1[2], c='g', marker='o', s=40)
     ax.scatter(collision_2[0], collision_2[1], collision_2[2], c='g', marker='o', s=40)
 line_x = np.linspace(-scale, scale, 2)
-line_y = ((line_x-dot1_x)*(dot2_y-dot1_y)/(dot2_x-dot1_x))+dot1_y
-line_z = ((line_x-dot1_x)*(dot2_z-dot1_z)/(dot2_x-dot1_x))+dot1_z
+line_y = ((line_x - dot1_x) * (dot2_y - dot1_y) / (dot2_x - dot1_x)) + dot1_y
+line_z = ((line_x - dot1_x) * (dot2_z - dot1_z) / (dot2_x - dot1_x)) + dot1_z
 ax.plot(line_x, line_y, line_z)
 plt.title('Рендер')
 ax.set_xlim3d(-scale, scale)

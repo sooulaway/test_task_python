@@ -1,37 +1,59 @@
 # -*- coding: utf-8 -*-
 # Функция, которая конвертирует число (без знака) из одной системы исчисления в любую другую.
 
-def convert(nb, from_base, to_base=10):
+from sys import argv
+
+usage = str('\nВведите аргументы в следующем виде:\n'
+            'python task1.py numb from_base to_base\n'
+            'где\n'
+            'task1.py - путь к файлу программы\n'
+            'numb- число для перевода\n'
+            'from_base - входная система счисления(число от 2 до 36)\n'
+            'to_base - выходныя система счисления(число от 2 до 36, котики)')
+
+
+def convert(nb, from_base, to_base):
     nb = str(nb)
     from_base = int(from_base)
     n = int(nb, from_base)
-    alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    if n < to_base:
-        return alphabet[n]
+    if to_base != 'котики':
+        to_base = int(to_base)
+        if to_base > 36:
+            print(usage)
+        alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        if n < to_base:
+            return alphabet[n]
+        else:
+            return convert(n // to_base, from_base=10, to_base=to_base) + alphabet[n % to_base]
     else:
-        return convert(n // to_base, from_base=10, to_base=to_base) + alphabet[n % to_base]
+        return convert_cat(n)
 
 
-def restart():
-    allow_answer = ['да', 'нет']
-    answer = input('Хотите попробовать ещё раз?\nОтвечайте только да или нет: ')
-    while answer not in allow_answer:
-        answer = input('Отвечайте только да или нет:')
-    if answer == 'да':
-        main()
+def convert_cat(n):
+    if n == 0:
+        return 'нет котиков'
+    elif n < 4:
+        return 'мало котиков'
+    elif n < 9:
+        return 'несколько котиков'
+    elif n < 19:
+        return 'группа котиков'
+    elif n < 50:
+        return 'толпа котиков'
+    elif n < 99:
+        return 'орда котиков'
+    elif n < 200:
+        return 'сотни котиков'
+    elif n < 500:
+        return 'туча котиков'
+    elif n < 1000:
+        return 'тьма котиков'
+    else:
+        return 'легион котиков'
 
 
-def main():
-    input_numb = input('Введите число:  ')
-    input_base = input('Введите систему счисления из которой необходимо перевести:  ')
-    result_base = int(input('Введите систему счисления в какую необходимо перевести\n '
-                            'это должно быть число от 2 до 36:  '))
-    try:
-        print('Вот ваше число в десятичной системе: ', convert(input_numb, input_base, result_base))
-        restart()
-    except:
-        print('usage')
-        restart()
-
-
-main()
+try:
+    program, input_numb, input_base, result_base = argv
+    print('Результат: ', convert(input_numb, input_base, result_base))
+except:
+    print(usage)

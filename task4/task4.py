@@ -3,7 +3,12 @@
 import re
 from sys import argv
 
-program, str1, str2 = argv
+usage = str('\nВведите аргументы в следующем виде:\n'
+            'python task4.py str1 str2\n'
+            'где\n'
+            'task4.py - путь к файлу программы\n'
+            'str1 - первая строка\n'
+            'str2 - вторая строка\n')
 
 
 def clear_str(_str):
@@ -33,4 +38,8 @@ def compare_str(_str1, _str2):
         print('KO')
 
 
-compare_str(str1, str2)
+try:
+    program, str1, str2 = argv
+    compare_str(str1, str2)
+except:
+    print(usage)
